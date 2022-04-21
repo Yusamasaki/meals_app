@@ -1,0 +1,34 @@
+name: Ruby
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup docker
+      shell: bash
+      run: |
+        # イメージのビルド
+        docker-compose build
+        # 必要なアップデート
+        docker-compose run web yarn install
+        # データベースの作成
+        docker-compose run web rake db:create
+      env:
+        RAILS_ENV: test
+
+    - name: Run Test
+      shell: bash
+      run:  |
+        # テスト実行
+        docker-compose run web rake rspec
+        # rubocop実行
+        docker-compose run web rake rubocop
