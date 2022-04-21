@@ -13,3 +13,5 @@ import '../src/application.scss'
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+require("admin-lte");
