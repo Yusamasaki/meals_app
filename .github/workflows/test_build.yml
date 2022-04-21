@@ -29,6 +29,6 @@ jobs:
       shell: bash
       run:  |
         # テスト実行
-        docker-compose run web rake rspec
+        docker-compose run web rspec
         # rubocop実行
-        docker-compose run web rake rubocop
+        docker-compose run web rubocop
